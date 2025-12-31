@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Surprise for Friends & Family 🎉</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', 'Segoe UI', sans-serif;
+      background: linear-gradient(270deg, #ff512f, #dd2476, #1fa2ff, #12d8fa, #a6ffcb);
+      background-size: 1000% 1000%;
+      animation: gradientBG 15s ease infinite;
+      color: white;
+      text-align: center;
+      overflow-x: hidden;
+    }
+
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    header {
+      padding: 100px 20px;
+      animation: fadeIn 2s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(40px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    h1 {
+      font-size: 3.8rem;
+      margin-bottom: 25px;
+      letter-spacing: 2px;
+      animation: glow 2s infinite alternate, bounce 2.5s infinite;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    @keyframes glow {
+      from { text-shadow: 0 0 10px #fff; }
+      to { text-shadow: 0 0 25px #ffeb3b, 0 0 40px #ff5722; }
+    }
+
+    p {
+      font-size: 1.3rem;
+      max-width: 750px;
+      margin: 0 auto 40px;
+      line-height: 1.6;
+    }
+
+    .button {
+      background: linear-gradient(45deg, #ffeb3b, #ff9800);
+      color: #333;
+      padding: 18px 40px;
+      border-radius: 40px;
+      font-size: 1.2rem;
+      cursor: pointer;
+      border: none;
+      box-shadow: 0 15px 30px rgba(0,0,0,0.4);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.08); }
+      100% { transform: scale(1); }
+    }
+
+    section {
+      padding: 70px 30px;
+      background: rgba(255,255,255,0.15);
+      margin: 50px auto;
+      border-radius: 25px;
+      max-width: 900px;
+      animation: slideUp 1.5s ease;
+    }
+
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(60px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    h2 {
+      font-size: 2.2rem;
+      margin-bottom: 20px;
+    }
+
+    footer {
+      padding: 30px;
+      font-size: 1rem;
+      opacity: 0.9;
+    }
+
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+    }
+  
+    /* 📱 Mobile Responsive Styles */
+    @media (max-width: 768px) {
+      header {
+        padding: 60px 15px;
+      }
+
+      h1 {
+        font-size: 2.3rem;
+      }
+
+      p {
+        font-size: 1.05rem;
+        margin-bottom: 30px;
+      }
+
+      .button {
+        padding: 14px 28px;
+        font-size: 1rem;
+      }
+
+      section {
+        padding: 45px 20px;
+        margin: 30px 15px;
+      }
+
+      h2 {
+        font-size: 1.6rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      h1 {
+        font-size: 1.9rem;
+      }
+
+      p {
+        font-size: 0.95rem;
+      }
+    }
+
+  </style>
+</head>
+<body>
+  <canvas id="confetti"></canvas>
+
+  <header>
+    <h1>🎆 Happy New Year 2026 🎆</h1>
+    <p>
+      यह सरप्राइज़ वेबसाइट मेरे प्यारे दोस्तों और परिवार के लिए ❤️ के साथ बनाई गई है।
+      आप सभी मेरी ज़िंदगी को और भी खास बनाते हैं।
+    </p>
+    <button class="button" onclick="launchConfetti()">सरप्राइज़ देखने के लिए टैप करें ✨</button>
+  </header>
+
+  <section>
+    <h2>💖 एक खास संदेश</h2>
+    <p>
+      यह नया साल आपके जीवन में खुशियाँ, शांति, सफलता और ढेर सारी खूबसूरत यादें लेकर आए।
+      हमेशा मेरे साथ रहने के लिए दिल से धन्यवाद।
+    </p>
+  </section>
+
+  <section>
+    <h2>🌟 हम सबके लिए मेरी कामना</h2>
+    <p>
+      और भी हँसी 😂, और भी जश्न 🎉, और भी साथ 🤗, और ढेर सारा प्यार ❤️ — हमेशा।
+    </p>
+  </section>
+
+  <footer>
+    आप सभी के लिए ❤️ के साथ बनाया गया
+  </footer>
+
+  <script>
+    const canvas = document.getElementById('confetti');
+    const ctx = canvas.getContext('2d');
+    let confettiPieces = [];
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    function launchConfetti() {
+      confettiPieces = [];
+      for (let i = 0; i < 300; i++) {
+        confettiPieces.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height - canvas.height,
+          r: Math.random() * 6 + 4,
+          d: Math.random() * 20 + 10,
+          color: `hsl(${Math.random() * 360}, 100%, 50%)`,
+          tilt: Math.random() * 10 - 10
+        });
+      }
+      requestAnimationFrame(drawConfetti);
+    }
+
+    function drawConfetti() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      confettiPieces.forEach(p => {
+        ctx.beginPath();
+        ctx.fillStyle = p.color;
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fill();
+      });
+      updateConfetti();
+      requestAnimationFrame(drawConfetti);
+    }
+
+    function updateConfetti() {
+      confettiPieces.forEach(p => {
+        p.y += Math.cos(p.d) + 4;
+        p.x += Math.sin(p.d);
+        if (p.y > canvas.height) {
+          p.y = -10;
+        }
+      });
+    }
+  </script>
+</body>
+</html>
